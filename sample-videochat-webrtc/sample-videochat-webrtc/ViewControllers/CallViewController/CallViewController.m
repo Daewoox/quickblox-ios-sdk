@@ -449,7 +449,10 @@ NSInteger QBRTCGetCpuUsagePercentage() {
 - (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
     
     if (session == self.session) {
-        
+		if ([session.initiatorID isEqualToNumber:userID]) {
+			[session hangUp:@{}];
+		}
+		
         [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
             
             cell.connectionState = [self.session connectionStateForUser:userID];

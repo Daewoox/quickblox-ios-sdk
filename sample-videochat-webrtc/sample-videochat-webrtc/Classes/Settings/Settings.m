@@ -102,29 +102,36 @@ NSString *const kMediaConfigKey = @"mediaConfig";
 
 - (void)setListType:(ListOfUsers)listType {
 
+	[QBSettings setApiEndpoint:@"https://apiqb.mecoshealth.com" chatEndpoint:@"chatqb.mecoshealth.com" forServiceZone:QBConnectionZoneTypeProduction];
+	[QBSettings setServiceZone:QBConnectionZoneTypeProduction];
+	
+	[QBSettings setApplicationID:1];
+	[QBSettings setAuthKey:@"XKhK3Mk4kb7Yrds"];
+	[QBSettings setAuthSecret:@"KCYZvPsuKWJCmYc"];
+	
     _listType = listType;
-    
-    switch (self.listType) {
-            
-        case ListOfUsersPROD:
-        case ListOfUsersQA:
-        case ListOfUsersDEV: {
-            //Quickblox preferences
-            [QBSettings setApplicationID:92];
-            [QBSettings setAuthKey:@"wJHdOcQSxXQGWx5"];
-            [QBSettings setAuthSecret:@"BTFsj7Rtt27DAmT"];
-            
-            break;
-        }
-        case ListOfUsersWEB: {
-            
-            [QBSettings setApplicationID:28287];
-            [QBSettings setAuthKey:@"XydaWcf8OO9xhGT"];
-            [QBSettings setAuthSecret:@"JZfqTspCvELAmnW"];
-            
-            break;
-        }
-    }
+//    
+//    switch (self.listType) {
+//            
+//        case ListOfUsersPROD:
+//        case ListOfUsersQA:
+//        case ListOfUsersDEV: {
+//            //Quickblox preferences
+//            [QBSettings setApplicationID:92];
+//            [QBSettings setAuthKey:@"wJHdOcQSxXQGWx5"];
+//            [QBSettings setAuthSecret:@"BTFsj7Rtt27DAmT"];
+//            
+//            break;
+//        }
+//        case ListOfUsersWEB: {
+//            
+//            [QBSettings setApplicationID:28287];
+//            [QBSettings setAuthKey:@"XydaWcf8OO9xhGT"];
+//            [QBSettings setAuthSecret:@"JZfqTspCvELAmnW"];
+//            
+//            break;
+//        }
+//    }
 }
 
 @end
