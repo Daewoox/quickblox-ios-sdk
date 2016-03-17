@@ -170,6 +170,7 @@ const NSUInteger kTableRowHeight = 44;
         return;
     }
     
+    
     self.currentSession = session;
 	
 	[QBRTCSoundRouter.instance initialize];
@@ -241,6 +242,23 @@ const NSUInteger kTableRowHeight = 44;
     [session rejectCall:nil];
     [self.nav dismissViewControllerAnimated:NO completion:nil];
     self.nav = nil;
+}
+
+- (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
+ 
+    if (self.currentSession == session) {
+        
+        if (session.initiatorID == userID && self.nav) {
+            
+            [self.currentSession hangUp:@{}];
+            
+            self.nav.view.userInteractionEnabled = NO;
+            [self.nav dismissViewControllerAnimated:NO completion:nil];
+            self.currentSession = nil;
+            self.nav = nil;
+        }
+    }
+    
 }
 
 @end
