@@ -107,6 +107,19 @@
 #pragma mark UITableViewDelegate methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	if (([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)) {
+		// fix for iOS 7
+		
+		if (indexPath.row == 1) { // username cell
+			return 96;
+		} else if (indexPath.row == 2) {// chat room cell
+			return 79;
+		}
+		return 60;
+		
+	}
+	
 	return UITableViewAutomaticDimension;
 }
 
