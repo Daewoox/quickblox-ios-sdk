@@ -25,7 +25,7 @@
 /*
  * Default test users password
  */
-static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
+static NSString *const kTestUsersDefaultPassword = @"12344321";
 
 - (void)viewDidLoad {
 	[super viewDidLoad];

@@ -250,26 +250,37 @@ QMChatCellDelegate
     if (self.typingTimer != nil) {
         [self fireStopTypingIfNecessary];
     }
-    
-    QBChatMessage *message = [QBChatMessage message];
-    message.text = text;
-    message.senderID = senderId;
-    message.markable = YES;
-    message.deliveredIDs = @[@(self.senderID)];
-    message.readIDs = @[@(self.senderID)];
-    message.dialogID = self.dialog.ID;
-    message.dateSent = date;
-    
-    // Sending message.
-    [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError *error) {
+    for (NSInteger i = 0; i < 3; i++)
+    {
+        QBChatMessage *message = [QBChatMessage message];
+        message.text = text;
+        message.senderID = senderId;
+        message.markable = YES;
+        message.deliveredIDs = @[@(self.senderID)];
+        message.readIDs = @[@(self.senderID)];
+        message.dialogID = self.dialog.ID;
+        message.dateSent = [NSDate date];
         
-        if (error != nil) {
-            NSLog(@"Failed to send message with error: %@", error);
-            [[TWMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
-        }
-    }];
+        // Sending message.
+        NSDate *startDate = [NSDate date];
+        [self.dialog sendMessage:message completionBlock:^(NSError * _Nullable error) {
+            if  (error) {
+                NSLog(@"error sendMessage %@",error);
+            }
+             NSLog(@"Seconds --------> %f",[[NSDate date] timeIntervalSinceDate:startDate]);
+        }];
+        [self finishSendingMessageAnimated:YES];
+    }
+
+//    [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError *error) {
+//        
+//        if (error != nil) {
+//            NSLog(@"Failed to send message with error: %@", error);
+//            [[TWMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
+//        }
+//    }];
     
-    [self finishSendingMessageAnimated:YES];
+   
 }
 
 #pragma mark - Cell classes
