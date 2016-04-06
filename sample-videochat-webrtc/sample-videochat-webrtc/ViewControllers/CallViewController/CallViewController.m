@@ -540,7 +540,9 @@ NSInteger QBRTCGetCpuUsagePercentage() {
  */
 - (void)session:(QBRTCSession *)session connectionClosedForUser:(NSNumber *)userID {
     
-    NSParameterAssert(self.session == session);
+    if (self.session != session) {
+        return;
+    }
     OpponentCollectionViewCell *cell = [self performUpdateUserID:userID];
     [self.videoViews removeObjectForKey:userID];
     [cell setVideoView:nil];
@@ -550,6 +552,9 @@ NSInteger QBRTCGetCpuUsagePercentage() {
  *  Called in case when disconnected from opponent
  */
 - (void)session:(QBRTCSession *)session disconnectedFromUser:(NSNumber *)userID {
+    if (self.session != session) {
+        return;
+    }
     [self updateStateWithSession:session forUserID:userID];
 }
 
