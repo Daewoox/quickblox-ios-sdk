@@ -786,11 +786,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 			return
 		}
 		
-		if self.detailedCells.contains(currentMessageID) {
-			self.detailedCells.remove(currentMessageID)
-		} else {
-			self.detailedCells.insert(currentMessageID)
-		}
+        if self.detailedCells.contains(currentMessageID) {
+            self.detailedCells.remove(currentMessageID)
+        }
+        else {
+            self.detailedCells.insert(currentMessageID)
+        }
 		
 		self.collectionView?.collectionViewLayout.removeSizeFromCacheForItemID(currentMessageID)
 		self.collectionView?.performBatchUpdates(nil, completion: nil)
