@@ -9,6 +9,7 @@
 #import "ServicesManager.h"
 #import "_CDMessage.h"
 #import <TWMessageBarManager/TWMessageBarManager.h>
+#import "QBMessageBarManager.h"
 
 @interface ServicesManager ()
 
@@ -52,8 +53,8 @@
         }
     }
     
-    [[TWMessageBarManager sharedInstance] hideAll];
-    [[TWMessageBarManager sharedInstance] showMessageWithTitle:dialogName description:message.text type:TWMessageBarMessageTypeInfo];
+    [[QBMessageBarManager sharedInstance] hideAll];
+    [[QBMessageBarManager sharedInstance] showMessageWithTitle:dialogName description:message.text type:TWMessageBarMessageTypeInfo];
 }
 
 - (void)handleErrorResponse:(QBResponse *)response {
@@ -74,8 +75,8 @@
 		errorMessage = NSLocalizedString(@"SA_STR_NETWORK_ERROR", nil);
 	}
     
-    [[TWMessageBarManager sharedInstance] hideAll];
-    [[TWMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:errorMessage type:TWMessageBarMessageTypeError];
+    [[QBMessageBarManager sharedInstance] hideAll];
+    [[QBMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:errorMessage type:TWMessageBarMessageTypeError];
 }
 
 - (void)downloadCurrentEnvironmentUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
